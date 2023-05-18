@@ -28,8 +28,8 @@ export function getChatHistory(idInstance, apiTokenInstance, chatId) {
   );
 }
 
-// export function getLastIncomingMessages(idInstance, apiTokenInstance) {
-//   return api.get(
-//     `/waInstance${idInstance}/lastIncomingMessages/${apiTokenInstance}`,
-//   );
-// }
+export function getLastIncomingMessages(idInstance, apiTokenInstance) {
+  return api.get(
+    `/waInstance${idInstance}/lastIncomingMessages/${apiTokenInstance}`,
+  );
+}

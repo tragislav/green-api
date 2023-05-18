@@ -15,7 +15,6 @@ function Login() {
   const { register, handleSubmit } = useForm({});
 
   const onSubmit = (data) => {
-    console.log(data);
     signIn(data, () =>
       navigate(`/main`, {
         replace: true,

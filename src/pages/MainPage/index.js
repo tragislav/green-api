@@ -22,7 +22,6 @@ function MainPage() {
       () =>
         getMessages(idInstance, apiTokenInstance)
           .then((data) => {
-            console.log(data);
             if (data == null) {
               console.log(
                 'Новых сообщений нету, создайте чат и начните общение',
@@ -47,7 +46,7 @@ function MainPage() {
               }
             }
           })
-          .catch((e) => console.log(e)),
+          .catch((e) => console.error(e)),
       3000,
     );
 
@@ -60,24 +59,19 @@ function MainPage() {
 
   const chatHandleKeyDown = (event) => {
     if (event.key === 'Enter') {
-      console.log(event.target.value);
       setNewChat(event.target.value + '@c.us');
       setIsChatOpen(true);
     }
   };
 
   const closeChat = (e) => {
-    console.log(e.key);
     if (e.key === 'Escape') {
-      console.log('ChatOpen: false');
-
       setIsChatOpen(false);
     }
   };
 
   return (
     <div className="MainWrapper" onKeyDown={closeChat} tabIndex={0}>
-      {/* <button onClick={() => setIsChatOpen(false)}>RELOAD</button> */}
       <div className="mainContainer">
         <div className="chatListContainer">
           <div className="newChatInputWrapper">

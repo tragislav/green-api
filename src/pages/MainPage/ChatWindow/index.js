@@ -32,8 +32,7 @@ function ChatWindow({ incomingMessage, sendMessage, chatId, isChatOpen }) {
 
   function sendToUser() {
     return sendMessage(idInstance, apiTokenInstance, chatId, message)
-      .then((data) => {
-        console.log(data);
+      .then(() => {
         // setTimeout(() => getHistory(), 1000);
         // setChatHistory([
         //   ...chatHistory,
@@ -49,12 +48,11 @@ function ChatWindow({ incomingMessage, sendMessage, chatId, isChatOpen }) {
           idMessage: Math.random() * 10,
         });
       })
-      .catch((e) => console.log(e));
+      .catch((e) => console.error(e));
   }
 
   // function getHistory() {
   //   getChatHistory(idInstance, apiTokenInstance, chatId).then((data) => {
-  //     console.log(data.length);
   //     setChatHistory(data);
   //   });
   // }
@@ -79,7 +77,6 @@ function ChatWindow({ incomingMessage, sendMessage, chatId, isChatOpen }) {
 
   useEffect(() => {
     if (chat.length) {
-      console.log(chat);
       setChatHistory(chat);
     }
   }, [chat]);
