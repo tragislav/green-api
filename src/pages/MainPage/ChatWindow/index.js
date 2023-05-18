@@ -48,6 +48,17 @@ function ChatWindow({ sendMessage, chatId, isChatOpen }) {
     });
   }
 
+  function messageType(type) {
+    switch (type) {
+      case 'outgoing':
+        return 'outgoing';
+      case 'incoming':
+        return 'incoming';
+      default:
+        return;
+    }
+  }
+
   useEffect(() => {
     if (chatId) {
       getHistory();
@@ -66,9 +77,14 @@ function ChatWindow({ sendMessage, chatId, isChatOpen }) {
               chatHistory
                 .map((item) => {
                   return (
-                    <div key={item.idMessage}>
-                      <p>
-                        {item.type}: {item.textMessage}
+                    <div
+                      key={item.idMessage}
+                      className={
+                        'messageWrapper ' + messageType(item.type) + 'Wrapper'
+                      }
+                    >
+                      <p className={'messageContent ' + messageType(item.type)}>
+                        {item.textMessage}
                       </p>
                     </div>
                   );
