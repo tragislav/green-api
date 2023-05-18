@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth';
+import { useChat } from '../../hooks/useChat';
 
 import { deleteNotification, getMessages, sendMessage } from '../../api/chat';
 
@@ -10,7 +11,8 @@ import { ReactComponent as UserAvatar } from '../../assets/userLogo.svg';
 import './styled.css';
 
 function MainPage() {
-  const { user, newMessage } = useAuth();
+  const { user } = useAuth();
+  const { newMessage } = useChat();
   const { idInstance, apiTokenInstance } = user;
 
   const [isChatOpen, setIsChatOpen] = useState(false);

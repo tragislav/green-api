@@ -6,13 +6,16 @@ import App from './App';
 import AuthProvider from './components/HOCs/AuthProvider';
 
 import './index.css';
+import ChatProvider from './components/HOCs/ChatProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <App />
+        <ChatProvider>
+          <App />
+        </ChatProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>,

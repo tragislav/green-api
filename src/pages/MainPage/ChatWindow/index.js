@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-import { getChatHistory } from '../../../api/chat';
 import { useAuth } from '../../../hooks/useAuth';
+import { useChat } from '../../../hooks/useChat';
 
 import { ReactComponent as WhatsAppLogo } from '../../../assets/whatsAppLogo.svg';
 import { ReactComponent as SendIcon } from '../../../assets/send-icon.svg';
@@ -10,7 +10,8 @@ import './styled.css';
 
 function ChatWindow({ incomingMessage, sendMessage, chatId, isChatOpen }) {
   const messageRef = useRef(null);
-  const { user, newMessage, chat } = useAuth();
+  const { user } = useAuth();
+  const { newMessage, chat } = useChat();
   const [chatHistory, setChatHistory] = useState([]);
   const [message, setMessage] = useState(null);
   const { idInstance, apiTokenInstance } = user;

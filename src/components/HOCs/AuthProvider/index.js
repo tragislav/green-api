@@ -4,7 +4,6 @@ export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [chat, setChat] = useState([]);
 
   const signIn = (newUser, cb) => {
     setUser(newUser);
@@ -15,11 +14,7 @@ const AuthProvider = ({ children }) => {
     cb();
   };
 
-  const newMessage = (item) => {
-    setChat([...chat, item]);
-  };
-
-  const value = { user, signIn, signOut, chat, newMessage };
+  const value = { user, signIn, signOut };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
