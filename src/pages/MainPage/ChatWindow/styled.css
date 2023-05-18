@@ -1,0 +1,39 @@
+.chatContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.emptyChat {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.chatWindow {
+  height: 100%;
+}
+
+.sendMessageContainer {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  background: #f0f2f5;
+}
+
+.sendMessageInput {
+  height: 22px;
+  padding: 9px 12px;
+  width: 923px;
+  margin: 5px 8px;
+}
+
+.sendMessageBtn {
+  padding: 5px 0;
+  margin: 5px 0;
+  cursor: pointer;
+}
