@@ -55,10 +55,6 @@ function MainPage() {
     return () => clearInterval(interval);
   }, [apiTokenInstance, idInstance, newMessage]);
 
-  const chatHandleChange = (event) => {
-    // setNewChat(event.target.value);
-  };
-
   const chatHandleKeyDown = (event) => {
     if (event.key === 'Enter') {
       setNewChat(event.target.value + '@c.us');
@@ -81,7 +77,6 @@ function MainPage() {
               className="newChatInput"
               type="text"
               placeholder="Создать чат"
-              onChange={chatHandleChange}
               onKeyDown={chatHandleKeyDown}
             />
           </div>

@@ -34,15 +34,6 @@ function ChatWindow({ incomingMessage, sendMessage, chatId, isChatOpen }) {
   function sendToUser() {
     return sendMessage(idInstance, apiTokenInstance, chatId, message)
       .then(() => {
-        // setTimeout(() => getHistory(), 1000);
-        // setChatHistory([
-        //   ...chatHistory,
-        //   {
-        //     type: 'outgoing',
-        //     textMessage: message,
-        //     idMessage: Math.random(),
-        //   },
-        // ]);
         newMessage({
           type: 'outgoing',
           textMessage: message,
@@ -51,12 +42,6 @@ function ChatWindow({ incomingMessage, sendMessage, chatId, isChatOpen }) {
       })
       .catch((e) => console.error(e));
   }
-
-  // function getHistory() {
-  //   getChatHistory(idInstance, apiTokenInstance, chatId).then((data) => {
-  //     setChatHistory(data);
-  //   });
-  // }
 
   function messageType(type) {
     switch (type) {
@@ -68,13 +53,6 @@ function ChatWindow({ incomingMessage, sendMessage, chatId, isChatOpen }) {
         return;
     }
   }
-
-  // useEffect(() => {
-  //   if (incomingMessage && newMessage && incomingMessage.sender === chatId) {
-  //     getHistory();
-  //     setNewMessage(false);
-  //   }
-  // }, [chatId, getHistory, incomingMessage, newMessage, setNewMessage]);
 
   useEffect(() => {
     if (chat.length) {
