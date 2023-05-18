@@ -16,6 +16,11 @@
 .chatWindow {
   overflow-y: auto;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  margin-bottom: 10px;
 }
 
 .sendMessageContainer {
@@ -75,4 +80,21 @@
   background: #fff;
   box-shadow: 0 1px 0.5px rgba(11, 20, 26, 0.13);
   border-radius: 9px;
+}
+
+.chatWindowHeader {
+  width: 100%;
+  height: 68px;
+  display: flex;
+  justify-content: flex-start;
+  background: #fff;
+}
+
+.chatWindowHeaderText {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 27px;
+  padding: 12px 40px;
 }

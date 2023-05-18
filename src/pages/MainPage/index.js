@@ -1,13 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 
-import {
-  deleteNotification,
-  getChatHistory,
-  getLastIncomingMessages,
-  getMessages,
-  sendMessage,
-} from '../../api/chat';
+import { deleteNotification, getMessages, sendMessage } from '../../api/chat';
 
 import ChatWindow from './ChatWindow';
 
@@ -16,46 +10,49 @@ import { ReactComponent as UserAvatar } from '../../assets/userLogo.svg';
 import './styled.css';
 
 function MainPage() {
-  const { user } = useAuth();
+  const { user, newMessage } = useAuth();
   const { idInstance, apiTokenInstance } = user;
 
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [newChat, setNewChat] = useState(null);
-  const [incommingMessage, setIncommingMessage] = useState(null);
+  const [incomingMessage, setIncomingMessage] = useState(null);
 
-  // const getLastMessages = useMemo(() => {
-  //   getLastIncomingMessages(idInstance, apiTokenInstance).then((data) =>
-  //     console.log(data),
-  //   );
-  // }, [idInstance, apiTokenInstance, getLastIncomingMessages]);
+  useEffect(() => {
+    const interval = setInterval(
+      () =>
+        getMessages(idInstance, apiTokenInstance)
+          .then((data) => {
+            console.log(data);
+            if (data == null) {
+              console.log(
+                'Новых сообщений нету, создайте чат и начните общение',
+              );
+            } else {
+              deleteNotification(idInstance, apiTokenInstance, data.receiptId);
+              if (data.body.typeWebhook === 'incomingMessageReceived') {
+                setIncomingMessage({
+                  textMessage:
+                    data.body.messageData.textMessageData.textMessage,
+                  senderName: data.body.senderData.senderName,
+                  sender: data.body.senderData.sender,
+                  type: 'incoming',
+                  idMessage: Math.random(),
+                });
+                newMessage({
+                  type: 'incoming',
+                  textMessage:
+                    data.body.messageData.textMessageData.textMessage,
+                  idMessage: Math.random(),
+                });
+              }
+            }
+          })
+          .catch((e) => console.log(e)),
+      3000,
+    );
 
-  // useEffect(() => {
-  //   // setInterval(() => reloadNot(), 5000);
-  //   // getLastIncomingMessages(idInstance, apiTokenInstance).then((data) =>
-  //   //   console.log(data),
-  //   // );
-  //   // console.log(getLastMessages);
-  // }, [getLastMessages]);
-
-  function reloadNot() {
-    getMessages(idInstance, apiTokenInstance)
-      .then((data) => {
-        console.log(data);
-        if (data == null) {
-          console.log('Новых сообщений нету, создайте чат и начните общение');
-        } else {
-          deleteNotification(idInstance, apiTokenInstance, data.receiptId);
-          if (data.body.typeWebhook === 'incomingMessageReceived') {
-            setIncommingMessage({
-              message: data.body.messageData.textMessageData.textMessage,
-              senderName: data.body.senderData.senderName,
-              sender: data.body.senderData.sender,
-            });
-          }
-        }
-      })
-      .catch((e) => console.log(e));
-  }
+    return () => clearInterval(interval);
+  }, [apiTokenInstance, idInstance, newMessage]);
 
   const chatHandleChange = (event) => {
     // setNewChat(event.target.value);
@@ -66,22 +63,21 @@ function MainPage() {
       console.log(event.target.value);
       setNewChat(event.target.value + '@c.us');
       setIsChatOpen(true);
-      // getChatHistory(idInstance, apiTokenInstance, `${newChat}@c.us`)
-      //   .then((data) => console.log(data))
-      //   .catch((e) => console.log(e));
     }
   };
 
-  const closeChat = (event) => {
-    if (event.key === 'Escape') {
+  const closeChat = (e) => {
+    console.log(e.key);
+    if (e.key === 'Escape') {
       console.log('ChatOpen: false');
+
       setIsChatOpen(false);
     }
   };
 
   return (
-    <div className="MainWrapper" onKeyDown={closeChat}>
-      <button onClick={() => reloadNot()}>RELOAD</button>
+    <div className="MainWrapper" onKeyDown={closeChat} tabIndex={0}>
+      {/* <button onClick={() => setIsChatOpen(false)}>RELOAD</button> */}
       <div className="mainContainer">
         <div className="chatListContainer">
           <div className="newChatInputWrapper">
@@ -93,25 +89,26 @@ function MainPage() {
               onKeyDown={chatHandleKeyDown}
             />
           </div>
-          {incommingMessage ? (
+          {incomingMessage ? (
             <div
               className="messageFromUserWrapper"
               onClick={() => {
                 setIsChatOpen(true);
-                setNewChat(incommingMessage.sender);
+                setNewChat(incomingMessage.sender);
               }}
             >
               <UserAvatar className="userAvatar" />
               <div className="fromUserTextContainer">
-                <h3 className="userTextName">{incommingMessage.senderName}</h3>
+                <h3 className="userTextName">{incomingMessage.senderName}</h3>
                 <span className="usertextContent">
-                  {incommingMessage.message}
+                  {incomingMessage.textMessage}
                 </span>
               </div>
             </div>
           ) : null}
         </div>
         <ChatWindow
+          incomingMessage={incomingMessage}
           isChatOpen={isChatOpen}
           sendMessage={sendMessage}
           chatId={newChat}

@@ -1,19 +1,17 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
+import { getChatHistory } from '../../../api/chat';
 import { useAuth } from '../../../hooks/useAuth';
 
-// import WhatsAppLogo from '../../../assets/waLogo';
 import { ReactComponent as WhatsAppLogo } from '../../../assets/whatsAppLogo.svg';
 import { ReactComponent as SendIcon } from '../../../assets/send-icon.svg';
 
-import { getChatHistory } from '../../../api/chat';
-
 import './styled.css';
 
-function ChatWindow({ sendMessage, chatId, isChatOpen }) {
+function ChatWindow({ incomingMessage, sendMessage, chatId, isChatOpen }) {
   const messageRef = useRef(null);
-  const { user } = useAuth();
-  const [chatHistory, setChatHistory] = useState(null);
+  const { user, newMessage, chat } = useAuth();
+  const [chatHistory, setChatHistory] = useState([]);
   const [message, setMessage] = useState(null);
   const { idInstance, apiTokenInstance } = user;
 
@@ -36,17 +34,30 @@ function ChatWindow({ sendMessage, chatId, isChatOpen }) {
     return sendMessage(idInstance, apiTokenInstance, chatId, message)
       .then((data) => {
         console.log(data);
-        getHistory();
+        // setTimeout(() => getHistory(), 1000);
+        // setChatHistory([
+        //   ...chatHistory,
+        //   {
+        //     type: 'outgoing',
+        //     textMessage: message,
+        //     idMessage: Math.random(),
+        //   },
+        // ]);
+        newMessage({
+          type: 'outgoing',
+          textMessage: message,
+          idMessage: Math.random() * 10,
+        });
       })
       .catch((e) => console.log(e));
   }
 
-  function getHistory() {
-    getChatHistory(idInstance, apiTokenInstance, chatId).then((data) => {
-      console.log(data);
-      setChatHistory(data);
-    });
-  }
+  // function getHistory() {
+  //   getChatHistory(idInstance, apiTokenInstance, chatId).then((data) => {
+  //     console.log(data.length);
+  //     setChatHistory(data);
+  //   });
+  // }
 
   function messageType(type) {
     switch (type) {
@@ -59,11 +70,19 @@ function ChatWindow({ sendMessage, chatId, isChatOpen }) {
     }
   }
 
+  // useEffect(() => {
+  //   if (incomingMessage && newMessage && incomingMessage.sender === chatId) {
+  //     getHistory();
+  //     setNewMessage(false);
+  //   }
+  // }, [chatId, getHistory, incomingMessage, newMessage, setNewMessage]);
+
   useEffect(() => {
-    if (chatId) {
-      getHistory();
+    if (chat.length) {
+      console.log(chat);
+      setChatHistory(chat);
     }
-  }, [chatId]);
+  }, [chat]);
 
   return (
     <div
@@ -72,24 +91,29 @@ function ChatWindow({ sendMessage, chatId, isChatOpen }) {
     >
       {isChatOpen ? (
         <>
+          <div className="chatWindowHeader">
+            <h3 className="chatWindowHeaderText">
+              {incomingMessage && incomingMessage.senderName
+                ? incomingMessage.senderName
+                : chatId}
+            </h3>
+          </div>
           <div className="chatWindow">
             {chatHistory &&
-              chatHistory
-                .map((item) => {
-                  return (
-                    <div
-                      key={item.idMessage}
-                      className={
-                        'messageWrapper ' + messageType(item.type) + 'Wrapper'
-                      }
-                    >
-                      <p className={'messageContent ' + messageType(item.type)}>
-                        {item.textMessage}
-                      </p>
-                    </div>
-                  );
-                })
-                .reverse()}
+              chatHistory.map((item) => {
+                return (
+                  <div
+                    key={item.idMessage}
+                    className={
+                      'messageWrapper ' + messageType(item.type) + 'Wrapper'
+                    }
+                  >
+                    <p className={'messageContent ' + messageType(item.type)}>
+                      {item.textMessage}
+                    </p>
+                  </div>
+                );
+              })}
           </div>
           <div className="sendMessageContainer">
             <input
