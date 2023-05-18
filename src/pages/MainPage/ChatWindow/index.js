@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 
 import { useAuth } from '../../../hooks/useAuth';
 
-import WhatsAppLogo from '../../../assets/waLogo';
+// import WhatsAppLogo from '../../../assets/waLogo';
+import { ReactComponent as WhatsAppLogo } from '../../../assets/whatsAppLogo.svg';
 import { ReactComponent as SendIcon } from '../../../assets/send-icon.svg';
 
 import { getChatHistory } from '../../../api/chat';
@@ -60,18 +61,19 @@ function ChatWindow({ sendMessage, chatId, isChatOpen }) {
     >
       {isChatOpen ? (
         <>
-          {chatHistory && console.log(chatHistory.reverse(), 'reverse')}
           <div className="chatWindow">
             {chatHistory &&
-              chatHistory.map((item) => {
-                return (
-                  <div key={item.idMessage}>
-                    <p>
-                      {item.type}: {item.textMessage}
-                    </p>
-                  </div>
-                );
-              })}
+              chatHistory
+                .map((item) => {
+                  return (
+                    <div key={item.idMessage}>
+                      <p>
+                        {item.type}: {item.textMessage}
+                      </p>
+                    </div>
+                  );
+                })
+                .reverse()}
           </div>
           <div className="sendMessageContainer">
             <input

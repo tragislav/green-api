@@ -26,7 +26,7 @@
   font-weight: 500;
   font-size: 23px;
   line-height: 120%;
-  color: hsla(122, 39%, 49%, 1);
+  color: #00a884;
 }
 
 .LoginForm {
@@ -72,7 +72,7 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
-  background: hsla(122, 39%, 49%, 1);
+  background: #00a884;
   box-shadow: 2px 8px 15px rgb(201 201 201 10%);
   border: transparent;
   border-radius: 7px;
@@ -92,7 +92,7 @@
   box-shadow: 0px 17px 15px -11px rgba(67, 76, 99, 0.2);
   cursor: pointer;
   font-weight: 500;
-  background: rgb(69, 134, 71);
+  background: #028e6f;
 }
 
 .LoginFooterForm {
