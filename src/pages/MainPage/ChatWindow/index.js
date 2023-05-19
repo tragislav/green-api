@@ -5,6 +5,7 @@ import { useChat } from '../../../hooks/useChat';
 
 import { ReactComponent as WhatsAppLogo } from '../../../assets/whatsAppLogo.svg';
 import { ReactComponent as SendIcon } from '../../../assets/send-icon.svg';
+import ChatItem from './ChatItem';
 
 import './styled.css';
 
@@ -43,17 +44,6 @@ function ChatWindow({ incomingMessage, sendMessage, chatId, isChatOpen }) {
       .catch((e) => console.error(e));
   }
 
-  function messageType(type) {
-    switch (type) {
-      case 'outgoing':
-        return 'outgoing';
-      case 'incoming':
-        return 'incoming';
-      default:
-        return;
-    }
-  }
-
   useEffect(() => {
     if (chat.length) {
       setChatHistory(chat);
@@ -78,16 +68,11 @@ function ChatWindow({ incomingMessage, sendMessage, chatId, isChatOpen }) {
             {chatHistory &&
               chatHistory.map((item) => {
                 return (
-                  <div
+                  <ChatItem
                     key={item.idMessage}
-                    className={
-                      'messageWrapper ' + messageType(item.type) + 'Wrapper'
-                    }
-                  >
-                    <p className={'messageContent ' + messageType(item.type)}>
-                      {item.textMessage}
-                    </p>
-                  </div>
+                    text={item.textMessage}
+                    type={item.type}
+                  />
                 );
               })}
           </div>

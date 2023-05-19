@@ -36,8 +36,6 @@ function MainPage() {
                     data.body.messageData.textMessageData.textMessage,
                   senderName: data.body.senderData.senderName,
                   sender: data.body.senderData.sender,
-                  type: 'incoming',
-                  idMessage: Math.random(),
                 });
                 newMessage({
                   type: 'incoming',
