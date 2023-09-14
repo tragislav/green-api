@@ -1,0 +1,99 @@
+.chatContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.emptyChat {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.chatWindow {
+  overflow-y: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  margin-bottom: 10px;
+}
+
+.sendMessageContainer {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  background: #f0f2f5;
+}
+
+.sendMessageInput {
+  height: 22px;
+  padding: 9px 12px;
+  width: 923px;
+  margin: 5px 8px;
+}
+
+.sendMessageBtn {
+  padding: 5px 0;
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+/* TODO: Окно чата */
+.messageWrapper {
+  margin: 5px 2%;
+  width: 94%;
+  display: flex;
+}
+
+.outgoingWrapper {
+  justify-content: flex-end;
+}
+
+.incomingWrapper {
+  justify-content: flex-start;
+}
+.messageContent {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  max-width: 625px;
+  word-wrap: break-word;
+  padding: 6px 7px 8px 9px;
+}
+
+.outgoing {
+  background: #c5e6c1;
+  box-shadow: 0 1px 0.5px rgba(11, 20, 26, 0.13);
+  border-radius: 9px;
+}
+
+.incoming {
+  background: #fff;
+  box-shadow: 0 1px 0.5px rgba(11, 20, 26, 0.13);
+  border-radius: 9px;
+}
+
+.chatWindowHeader {
+  width: 100%;
+  height: 68px;
+  display: flex;
+  justify-content: flex-start;
+  background: #fff;
+}
+
+.chatWindowHeaderText {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 27px;
+  padding: 12px 40px;
+}

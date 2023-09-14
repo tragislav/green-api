@@ -1,0 +1,64 @@
+.MainWrapper {
+  background: #e8e9eb;
+  height: 74.5vh;
+  padding-top: 57px;
+}
+
+.mainContainer {
+  width: 1600px;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  height: 70vh;
+}
+
+.chatListContainer {
+  width: 480px;
+  border-right: 2px solid #f0f2f5;
+}
+
+.newChatInputWrapper {
+  width: 100%;
+  border-bottom: 2px solid #f0f2f5;
+}
+
+.newChatInput {
+  width: 80%;
+  margin: 5px;
+  height: 35px;
+  padding: 3px 10px 3px 40px;
+}
+
+.messageFromUserWrapper {
+  display: flex;
+  padding: 10px 0;
+  transition: all 0.5s ease-out;
+}
+
+.messageFromUserWrapper:hover {
+  background: #f0f2f5;
+}
+
+.userAvatar {
+  padding: 0 15px;
+}
+
+.fromUserTextContainer {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  width: 100%;
+
+  overflow-x: hidden;
+}
+
+.userTextName {
+  font-size: 17px;
+  line-height: 21px;
+}
+
+.usertextContent {
+  font-size: 14px;
+  line-height: 20px;
+}
